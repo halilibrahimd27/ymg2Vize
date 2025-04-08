@@ -1,0 +1,100 @@
+Started by GitHub push by halilibrahimd27
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in C:\ProgramData\Jenkins\.jenkins\workspace\ymgVize
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Repo Klonla)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git.exe rev-parse --resolve-git-dir C:\ProgramData\Jenkins\.jenkins\workspace\ymgVize\.git # timeout=10
+Fetching changes from the remote Git repository
+ > git.exe config remote.origin.url https://github.com/halilibrahimd27/ymg2Vize.git # timeout=10
+Fetching upstream changes from https://github.com/halilibrahimd27/ymg2Vize.git
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.45.2.windows.1'
+ > git.exe fetch --tags --force --progress -- https://github.com/halilibrahimd27/ymg2Vize.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
+Checking out Revision 9f28e9ee68f8d84d22b4cfd5f979f1e9e3419330 (refs/remotes/origin/main)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f 9f28e9ee68f8d84d22b4cfd5f979f1e9e3419330 # timeout=10
+ > git.exe branch -a -v --no-abbrev # timeout=10
+ > git.exe branch -D main # timeout=10
+ > git.exe checkout -b main 9f28e9ee68f8d84d22b4cfd5f979f1e9e3419330 # timeout=10
+Commit message: "Update index.html"
+ > git.exe rev-list --no-walk 789c2748b4a01f6bdb6a784aff38f4359ffcaa29 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Image Olustur)
+[Pipeline] echo
+Docker Image Olusturuluyor
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\ymgVize>docker build -t deneme-pipeline . 
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 102B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:latest
+#2 DONE 0.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 10.16kB 0.0s done
+#4 DONE 0.1s
+
+#5 [1/2] FROM docker.io/library/nginx:latest@sha256:09369da6b10306312cd908661320086bf87fbae1b6b0c49a1f50ba531fef2eab
+#5 CACHED
+
+#6 [2/2] COPY . /usr/share/nginx/html/
+#6 DONE 0.1s
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 writing image sha256:68b6cc9dd58b8919d46c6a908ee78b407c6983e141f8f4048aeb26dc43f9cfde done
+#7 naming to docker.io/library/deneme-pipeline done
+#7 DONE 0.1s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Eski Konteyneri Durdur)
+[Pipeline] echo
+Eski Konteyner Durduruluyor
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\ymgVize>docker rm -f nginx-deneme-container   || exit 0 
+nginx-deneme-container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Yeni Konteyneri Olustur)
+[Pipeline] echo
+Yeni Konteyner Olusturuluyor
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\ymgVize>docker run -d --name nginx-deneme-container -p 4444:80 deneme-pipeline 
+ef08723991c691aa96a41a3fa2fe451b0e8bf5dc505e42061b005c0034d51bb5
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Yayın başarılı: http://localhost:4444
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
